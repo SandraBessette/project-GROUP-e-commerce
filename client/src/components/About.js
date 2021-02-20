@@ -93,76 +93,103 @@ const Divider = styled.div`
   margin-bottom: 60px;
 `;
 
-const Logo = styled.img`
-  display: flex;
-  height: 400px;
-  background-color: darkblue;
-`;
-
 const Link1 = styled(Link)`
   display: flex;
   width: 111px;
   display: "inline";
 `;
+
 const AboutDiv = styled.div`
   font-weight: bold;
   font-size: 20px;
   display: flex;
-
+  text-align: center;
   padding-top: 40px;
+
+  @media (max-width: 900px) {     
+    font-size: 18px;
+  }
 `;
+
 const Wrapper2 = styled.div`
   display: flex;
   justify-content: space-between;
+  @media (max-width: 900px) {
+    flex-direction: column;     
+    align-items: center;
+  }
 `;
 
 const ColumnWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 70%;
 `;
 
 const NamesWrapper = styled.div`
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   font-weight: bold;
   font-size: 20px;
+  padding: 0px 10px;
+  @media (max-width: 768px) {
+    font-size: 15px;
+  }
 `;
 
 const NamesWrapper1 = styled.div`
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   font-size: 20px;
+  text-align: center;  
+  padding: 5px 10px;
+  width: 100%;
+  @media (max-width: 768px) {
+    font-size: 15px;
+  }
+
 `;
 const Names = styled.div`
   display: flex;
-  width: 100vw;
+  width: 100%;
   justify-content: space-around;
   color: ${COLORS.secondary};
-
-  padding: 30px;
+  padding: 30px 0;
+  @media (max-width: 768px) {
+    padding: 30px 0 20px 0;
+  }
 `;
 
 const WrapperLogos = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 100vw;
+  width: 100%;
   margin-bottom: 60px;
 `;
+
 const LogoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   border-style: solid;
-  width: 100vw;
+  width: 100%;
   background-color: ${COLORS.secondary};
   justify-content: center;
   margin-bottom: 20px;
 `;
 
+const Logo = styled.img`
+  display: flex; 
+  width: 70%; 
+  max-height: 400px; 
+  background-color: darkblue;
+`;
+
 const Text = styled.span`
   width: 30vw;
   justify-content: center;
-  text-align: center;
   background-color: ${COLORS.fifth};
   padding: 30px;
   margin: 10px;
@@ -170,6 +197,11 @@ const Text = styled.span`
   opacity: 70%;
   text-align: justify;
   overflow: visible;
+
+  @media (max-width: 900px) {     
+    width: 90%;
+    font-size: 16px;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -177,10 +209,11 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   border-style: solid;
-  width: 100vw;
+  width: 100%;
   background-color: #fafafa;
   justify-content: center;
 `;
+
 const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -195,4 +228,9 @@ const TextWrapper = styled.div`
   margin-left: 15px;
   margin-right: 15px;
   margin-top: 50px;
+
+  @media (max-width: 900px) { 
+    width: 80%;
+    margin-top: 30px;
+  }
 `;
