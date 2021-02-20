@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { COLORS } from "../constants";
 import styled from "styled-components";
-// import GlobalStyles from "../GlobalStyles";
 
 const Main = () => {
-  const height = "200px";
-  const width = "200px";
   return (
     <>
       <Wrapper
@@ -52,7 +49,7 @@ const Wrapper = styled.div`
   justify-content: space-evenly;
   background-image: "../assets/industrial.jpg";
   background-size: cover;
-  min-height: 74vh;
+  min-height: calc(.76*100vh);
 `;
 
 const Carousel = styled.div`
