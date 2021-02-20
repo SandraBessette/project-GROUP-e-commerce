@@ -22,24 +22,21 @@ const Confirmation = () => {
 
   if (!data) {
     return (
-      <div>
+      <SpinnerWrapper>
         <StyledIcon size={50} icon={spinner6} />
-      </div>
+      </SpinnerWrapper>
     );
   }
-
   return (
     <Wrapper>
       <Logos>
         <Logo1
           src={require("../assets/ThankYou.jpg")}
-          alt="WearTek"
-          height="200px"
+          alt="WearTek"         
         ></Logo1>
         <Logo1
           src={require("../assets/wearteklogo.png")}
-          alt="WearTek"
-          height="200px"
+          alt="WearTek"          
         ></Logo1>
       </Logos>
       <Main>Thank you for your order!</Main>
@@ -103,11 +100,17 @@ const Wrapper = styled.div`
   border-style: solid;
   border-width: 1px;
   border-color: gray;
+  padding: 10px;
 `;
 
 const Main = styled.div`
   font-size: 40px;
   margin-bottom: 50px;
+  text-align: center;
+
+  @media (max-width: 768px) {       
+    font-size: 36px;
+  }
 `;
 
 const Processing = styled.div`
@@ -127,6 +130,10 @@ const ConfirmationWrapper = styled.div`
   margin-bottom: 30px;
   display: flex;
   width: 100%;
+
+  @media (max-width: 768px) {       
+    font-size: 14px;
+  }
 `;
 
 const FlexWrapper = styled.div`
@@ -134,26 +141,42 @@ const FlexWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 50%;
+  @media (max-width: 768px) {       
+    width: 45% 
+  }
 `;
 
 const Details = styled.div`
   display: flex;
   width: 50%;
+  
   font-weight: bold;
   justify-content: flex-end;
-  padding-right: 40px;
+  text-align: right;
+  padding-right: 40px;  
+
+  @media (max-width: 768px) {       
+    width: 55% 
+  }
 `;
 
 const Details2 = styled.div`
   padding-bottom: 10px;
   color: ${COLORS.secondary};
 `;
-const Logo1 = styled.img``;
-const Logos = styled.div`
-  margin-top: 40px;
-  display: flex;
-  margin-bottom: 30px;
+
+const Logo1 = styled.img`
+  width: 50%;
+  max-width: 200px;
 `;
+
+const Logos = styled.div`
+  margin: 40px 10px 30px 10px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
 const spinner = keyframes`
   from {
     transform: rotate(0deg);
@@ -163,8 +186,13 @@ const spinner = keyframes`
   }
 `;
 const StyledIcon = styled(Icon)`
-  margin: 5% auto;
+  margin: 18% auto;
   animation: ${spinner} linear 1000ms infinite;
 `;
 
+const SpinnerWrapper = styled.div`
+ display: flex;
+ justify-content: center; 
+`;
+ 
 export default Confirmation;
