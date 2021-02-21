@@ -217,11 +217,11 @@ const Title = styled.p`
   `;
 
 const Banner = styled.div`
-    position: absolute;
-    left: 15px;
+    position: absolute;   
+    left: 15px;    
     top: 15px;
     height: 90px;
-    width: 100%;
+    width: Calc(100% - 15px);
     background-color:${COLORS.secondary};  
     @media (max-width: 1000px) {
     font-size: 40px;  
@@ -231,6 +231,7 @@ const Banner = styled.div`
     left: 0px;    
     height: 80px;
     top: 20px;
+    width: 100%;
   }
 
 `;
