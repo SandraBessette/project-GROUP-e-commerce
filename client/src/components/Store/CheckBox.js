@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const CheckBox = ({ id, value, name, handleChange, isChecked, isAvailable, children })=>{     
+const CheckBox = ({ id, value, name, handleChange, isChecked, isAvailable, children })=>{
     return (
         <Wrapper isAvailable={isAvailable}> 
             <Label >           

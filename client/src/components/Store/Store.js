@@ -43,7 +43,7 @@ const Store = () => {
     return text;  
   }, [category, sort, price, body_location]);  
 
-  useEffect(() => {   
+  useEffect(() => {  
     dispatch(requestStoreInfo());
     const text = createFetchEndPoint(); 
     fetch(text)
@@ -59,7 +59,7 @@ const Store = () => {
       .catch((e) => {       
         dispatch(receiveStoreInfoError(e));
       });
-  }, [createFetchEndPoint]);
+  }, [createFetchEndPoint, dispatch]);
 
 
   if (status=== "error"){
@@ -71,7 +71,8 @@ const Store = () => {
   return (
     <Wrapper>  
       <SideBar />
-      <RightWrapper>       
+      <RightWrapper>   
+       {TitleStore[category]   && <>
         <Image src={TitleStore[category].image} alt="image" objectPosition={TitleStore[category].objectPosition}></Image>
         <Banner />
         <Title>{TitleStore[category].name.toUpperCase()}</Title>        
@@ -87,6 +88,7 @@ const Store = () => {
           }
           <Box isAvailable={true}>{price.label}</Box >
         </FilterWrapper>
+        </>}
         <Dropdown />         
         {status === "loading" && <Spinner />} 
         {status === "idle" && currentStore.store.length ===0 && <Icon><VscSearchStop color='lightgray' size={200} /></Icon>}  

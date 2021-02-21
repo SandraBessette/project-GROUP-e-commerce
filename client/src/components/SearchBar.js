@@ -8,15 +8,15 @@ import { COLORS } from "../constants";
 const SearchBar = ({ data }) => {
   let history = useHistory();
   const [value, setValue] = useState("");
-  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(0);
-  const [status, setStatus] = useState(false);
+  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(0);  
 
   const handleSelect = (suggestion) => {
-    console.log(suggestion);
+    console.log(suggestion);   
     history.push(`/item/${suggestion}`);
     history.push("/temp");
     history.goBack();
     setValue("");
+   
   };
 
   return (
@@ -37,6 +37,8 @@ const SearchBar = ({ data }) => {
               setValue("");
               return;
             }
+            default:
+              return;
           }
         }}
         onChange={(ev) => {
@@ -63,9 +65,7 @@ const SearchBar = ({ data }) => {
           value={value}
           handleSelect={handleSelect}
           selectedSuggestionIndex={selectedSuggestionIndex}
-          setSelectedSuggestionIndex={setSelectedSuggestionIndex}
-          status={status}
-          setStatus={setStatus}
+          setSelectedSuggestionIndex={setSelectedSuggestionIndex}         
         ></Suggestion>
       </SuggestionWrapper>
     </TypeheadWrapper>
@@ -87,7 +87,7 @@ const Input = styled.input`
 
 const SuggestionWrapper = styled.div``;
 
-const Button = styled.button`
+/*const Button = styled.button`
   background: blue;
   color: white;
   padding: 10px;
@@ -97,5 +97,5 @@ const Button = styled.button`
   padding-right: 20px;
   margin-left: 10px;
   border-radius: 5px;
-`;
+`;*/
 export default SearchBar;

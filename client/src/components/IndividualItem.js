@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { addItem } from "../actions";
 import styled from "styled-components";
@@ -17,7 +17,7 @@ const IndividualItem = ({
   bodyLocation,
 }) => {
   console.log(name);
-  const [hidden, setHidden] = useState(true);
+  //const [hidden, setHidden] = useState(true);
   const dispatch = useDispatch();
   const handleClick = (ev) => {
     ev.preventDefault();
@@ -31,8 +31,7 @@ const IndividualItem = ({
         imageSrc,
         numInStock,
         companyName,
-        companyFrom,
-        bodyLocation,
+        companyFrom
       })
     );
   };

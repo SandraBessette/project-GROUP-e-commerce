@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React from "react";
+import { Switch, Route } from "react-router-dom";
 
 import styled from "styled-components";
 import Cart from "./Cart/Cart";
@@ -45,7 +45,7 @@ const Body = () => {
           </Route>
           <Route exact path="/">
             <Main />
-          </Route>
+          </Route>          
         </Switch>
       </Wrapper>
     </>

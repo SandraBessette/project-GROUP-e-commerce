@@ -16,7 +16,7 @@ const compareAscPrice = (a, b) =>{
         });
     }
     
-    if (bodyLocationFilter) {  
+    if (bodyLocationFilter && Array.isArray(bodyLocationFilter)) {  
       const validBodyLocationFilter = bodyLocationFilter.filter((bodyLocation)=>{      
         return bodyLocationObject[bodyLocation] !== undefined;
       });

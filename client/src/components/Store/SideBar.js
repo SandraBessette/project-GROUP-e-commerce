@@ -97,7 +97,7 @@ const SideBar = ()=>{
                                     value={data.value}                           
                                     name={data.value}
                                     isChecked={data.isChecked}
-                                    isAvailable={currentStore && currentStore.bodyLocation[data.value] !== undefined}
+                                    isAvailable={currentStore !== null && currentStore.bodyLocation[data.value] !== undefined}
                                     handleChange={handleChangeFilterBodyLocation}
                                 >
                                     {data.label}
