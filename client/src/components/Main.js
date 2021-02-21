@@ -2,6 +2,7 @@ import React from "react";
 
 import { COLORS } from "../constants";
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 const Main = () => {
   return (
@@ -13,28 +14,28 @@ const Main = () => {
       >
         <Carousel>
           <Slide>
-            <Link href="/store/category/fitness">Fitness</Link>
+            <NavLink to="/store/category/fitness">Fitness</NavLink>
             <Image src={require("../assets/fitness.jpg")}></Image>
           </Slide>
           <Slide>
-            <Link href="/store/category/medical">Medical</Link>
+            <NavLink to="/store/category/medical">Medical</NavLink>
             <Image src={require("../assets/Medical.jpg")}></Image>
           </Slide>
           <Slide>
-            <Link href="/store/category/lifestyle">Lifestyle</Link>
+            <NavLink to="/store/category/lifestyle">Lifestyle</NavLink>
             <Image src={require("../assets/Lifestyle.jpg")}></Image>
           </Slide>
 
           <Slide>
-            <Link href="/store/category/entertainment">Entertainment</Link>
+            <NavLink to="/store/category/entertainment">Entertainment</NavLink>
             <Image src={require("../assets/Entertainment.jpg")}></Image>
           </Slide>
           <Slide>
-            <Link href="/store/category/industrial">Industrial</Link>
+            <NavLink to="/store/category/industrial">Industrial</NavLink>
             <Image src={require("../assets/industrial.jpg")}></Image>
           </Slide>
           <Slide>
-            <Link href="/store/category/petsandanimals">Pets & Animals</Link>
+            <NavLink to="/store/category/petsandanimals">Pets & Animals</NavLink>
             <Image src={require("../assets/petsandanimals.jpg")}></Image>
           </Slide>
         </Carousel>
@@ -84,7 +85,7 @@ const Slide = styled.div`
   }
 `;
 
-const Link = styled.a`
+const NavLink = styled(Link)`
   position: absolute;
   color: white;
   display: flex;
