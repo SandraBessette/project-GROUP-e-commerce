@@ -1,18 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
+import { useHistory } from "react-router-dom";
+
 import {
   RiHome2Line,
   RiShoppingCartLine,
   RiInformationLine,
   RiStore2Line,
+  RiQuestionAnswerLine,
 } from "react-icons/ri";
 import { COLORS } from "../constants";
 import styled from "styled-components";
 import SearchBar from "../components/SearchBar";
+import { useSelector } from "react-redux";
+import { getStoreItemArray } from "../reducers/item-reducer";
 
 const Header = () => {
+  const [totalItemsHeader, setTotalItemsHeader] = useState();
+  const newItems = useSelector(getStoreItemArray);
+  const history = useHistory();
   const [data, setData] = useState();
+
+  useEffect(() => {
+    const calculateTotalItem = (storeState) => {
+      const reducer = (accumulator, storeItem) => {
+        if (storeItem._id) {
+          return Number(accumulator + storeItem.quantity);
+        } else {
+          return accumulator;
+        }
+      };
+      return storeState.reduce(reducer, 0);
+    };
+
+    const total = calculateTotalItem(newItems);
+    console.log("Total Items", total);
+    setTotalItemsHeader(total);
+  }, [newItems]);
+
   useEffect(() => {
     fetch("/items")
       .then((res) => res.json())
@@ -33,13 +59,32 @@ const Header = () => {
     <>
       <Wrapper>
         <FirstWrapper>
+        <NavLink to="/">
           <Logo
             src={require("../assets/newwearteklogo.png")}
             alt="WearTek"
             height="98px"
+            style={{
+              position: "absolute",
+              top: "0px",
+            }}
+            onClick={() => {
+              history.push("/");
+            }}
           ></Logo>
-          {/* <Button>3</Button> */}
+          </NavLink>
 
+          {totalItemsHeader > 0 ? (
+            <Button
+              onClick={() => {
+                history.push("/cart");
+              }}
+            >
+              {totalItemsHeader}
+            </Button>
+          ) : (
+            <></>
+          )}
           <Motto>How do you wear it?</Motto>
           <SearchBarContainer>
             <NavLinkListItem tabindex="0">
@@ -50,9 +95,9 @@ const Header = () => {
         <SecondWrapper>
           <NavLinkList>
             <NavLinkListItem tabindex="0">
-              <Link to="/">
-                <RiHome2Line size="35" />
-                <NavigationLink>Main</NavigationLink>
+              <Link to="/about">
+                <RiInformationLine size="35" />
+                <NavigationLink>About</NavigationLink>
               </Link>
             </NavLinkListItem>
             <NavLinkListItem tabindex="0">
@@ -63,7 +108,7 @@ const Header = () => {
             </NavLinkListItem>
             <NavLinkListItem tabindex="0">
               <Link to="/contactinfo">
-                <RiInformationLine size="35" />
+                <RiQuestionAnswerLine size="35" />
                 <NavigationLink>Support</NavigationLink>
               </Link>
             </NavLinkListItem>
@@ -90,7 +135,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   position: relative;
-  width: 100vw;
+  width: 100%;
   background-color: ${COLORS.fifth};
 `;
 
@@ -107,7 +152,7 @@ const SecondWrapper = styled.div`
   justify-content: flex-end;
   height: 100px;
 `;
-const Button = styled.div`
+const Button = styled.button`
   position: absolute;
   font-family: "Alata", sans-serif;
   font-size: 15px;
@@ -124,6 +169,10 @@ const Button = styled.div`
   background-color: "black";
   border-style: "solid";
   outline: none;
+  cursor: pointer;
+  @media (max-width: 1200px) {
+    right: 2px;
+  }
 `;
 const SearchBarContainer = styled.div`
   display: flex;

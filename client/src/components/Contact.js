@@ -21,8 +21,7 @@ const Contact = () => {
           alt="contact us"
         ></Logo>
         <BoxWrapper>
-          <BoxTextWrapper>
-            <Box />
+          <Box>
             <TextTitles>Talk to Customer Support</TextTitles>
             <Textparagraph>
               Sometimes you need a little help from your friends. Or a Wear-Tek
@@ -31,9 +30,8 @@ const Contact = () => {
             <EmailPhoneNo>
               <Bold>+1 801-954-9887</Bold>
             </EmailPhoneNo>
-          </BoxTextWrapper>
-          <BoxTextWrapper>
-            <Box />
+          </Box>
+          <Box>
             <TextTitles>Email Customer Support</TextTitles>
             <Textparagraph>
               You may prefer to email rather than call us. Please rest assured
@@ -42,7 +40,7 @@ const Contact = () => {
             <EmailPhoneNo>
               <Bold>wearteksupport@weartek.com</Bold>
             </EmailPhoneNo>
-          </BoxTextWrapper>
+          </Box>
         </BoxWrapper>
         <Map location={location} zoomLevel={17} />
       </Wrapper>
@@ -51,74 +49,66 @@ const Contact = () => {
 };
 
 const Wrapper = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  border-style: solid;
-  border-width: 1px;
-  border-color: gray;
-  max-height: 1740px;
+  width: 100%;
 `;
 const Logo = styled.img`
-  width: 100vw;
-  display: flex;
+  width: 100%;
 `;
-
-const BoxTextWrapper = styled.div`
+const BoxWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-`;
-const TextTitles = styled.div`
-  position: relative;
-  top: -280px;
-  display: flex;
+  width: 100%;
   justify-content: center;
+  align-items: center;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
+`;
+const Box = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 400px;
+  border: 1px solid lightgray;
+  border-style: solid;
+  background-color: white;
+  margin: 10px;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    margin: 3px;
+    padding: 3px;
+    width: 300px;
+  }
+`;
+const TextTitles = styled.h1`
   font-weight: bold;
   font-size: 20px;
 `;
 
-const Textparagraph = styled.div`
-  position: relative;
-  width: 500px;
-  top: -290px;
-  display: flex;
+const Textparagraph = styled.p`
   font-size: 17px;
   margin: 10px;
-  padding: 60px;
+  padding: 30px;
   text-align: center;
-`;
-const BoxWrapper = styled.div`
-  /* position: relative;
-  top: -10px; */
-  display: flex;
-  width: 100vw;
-  justify-content: center;
-`;
-const Box = styled.h1`
-  display: flex;
-  flex-wrap: wrap;
-  width: 500px;
-  height: 300px;
-  border: 1px solid lightgray;
-  background-color: white;
-  margin: 10px;
+  @media (max-width: 1000px) {
+    margin: 5px;
+    padding: 15px;
+  }
 `;
 
-const EmailPhoneNo = styled.div`
-  position: relative;
-  width: 500px;
-  top: -380px;
-  display: flex;
+const EmailPhoneNo = styled.p`
   font-size: 17px;
   margin: 10px;
-  padding: 60px;
+  padding: 10px;
   color: ${COLORS.secondary};
-  justify-content: center;
 `;
 
-const Bold = styled.div`
+const Bold = styled.p`
   font-weight: bold;
   margin-left: 10px;
 `;
