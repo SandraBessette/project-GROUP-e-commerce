@@ -7,24 +7,20 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeItem, updateQuantity } from "../actions";
 import { getStoreItemArray } from "../reducers/item-reducer";
 import { COLORS } from "../constants";
-const errorMessages = {
-  "missing-data": "Oops!! Looks like we're missing some information.",
-};
+
 const initialState = {
   givenName: "",
   surname: "",
   email: "",
-  fullName: "",
   phoneNumber: "",
-  AddressLine1: "",
-  AddressLine2: "",
-  City: "",
-  Province: "",
-  Country: "",
-  Postcode: "",
-  CardNumber: "",
-  ExpiryDate: "",
-  CVC: "",
+  addressLine1: "",
+  city: "",
+  province: "",
+  country: "",
+  postcode: "",
+  cN: "",
+  eD: "",
+  nB: "",
 };
 
 const Checkout = () => {
@@ -34,52 +30,20 @@ const Checkout = () => {
   const [subStatus, setSubStatus] = useState("idle");
   const [dataReceived, setDataReceived] = useState("");
   const [errMessage, setErrMessage] = useState("");
+  const [emailErr, setEmailErr] = useState({});
+  const [cNErr, setCNErr] = useState({});
+  const [eDErr, setEDErr] = useState({});
+  const [nBErr, setNBErr] = useState({});
 
-  const dispatch = useDispatch();  
+  const dispatch = useDispatch();
   const newItems = useSelector(getStoreItemArray);
   console.log("newItems", newItems);
   const history = useHistory();
-
-  useEffect(() => {
-    Object.values(formData).includes("")
-      ? setDisabled(true)
-      : setDisabled(false);
-  }, [cart, formData, setDisabled]);
 
   const handleChange = (val, item) => {
     setFormData({ ...formData, [item]: val });
     setErrMessage("");
   };
-
-  // const validateEmail = () => {
-  //   const emailParts = formData.email.split("@");
-  //   return (
-  //     emailParts.length === 2 &&
-  //     emailParts[0].length > 0 &&
-  //     emailParts[1].length > 0
-  //   );
-  // };
-
-  // const validateCardLength = () => {
-  //   const cardLength = formData.CardNumber;
-  //   return (
-  //     cardLength.length === 16
-  //   );
-  // };
-
-  // const validateExpiry = () => {
-  //   const Expiry = formData.ExpiryDate;
-  //   return (
-  //     Expiry.length === 4
-  //   );
-  // };
-
-  // const validateCVC= () => {
-  //   const CVC = formData.CVC;
-  //   return (
-  //     CVC.length === 3
-  //   );
-  // };
 
   const handleSubmit = (ev) => {
     console.log("sss");
@@ -102,200 +66,242 @@ const Checkout = () => {
             setDataReceived(response.data);
             localStorage.setItem("received", JSON.stringify(response.data));
             setSubStatus("confirmed");
-            // history.push("/confirmation");
+            history.push("/confirmation");
           } else if (error) {
             setSubStatus("error");
-            setErrMessage(errorMessages[error]);
+            // setErrMessage(errorMessages[error]);
           }
           console.log("hey", response.data);
         });
     }
   };
+
+  const formValidation = () => {
+    const emailErr = {};
+    const cNErr = {};
+    const eDErr = {};
+    const nBErr = {};
+    let isValid = true;
+
+    if (formData.email.length === 0) {
+      emailErr.email = "email can't be empty";
+      isValid = false;
+    }
+    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!emailRegex.test(formData.email)) {
+      emailErr.email = "Invalid email address";
+      isValid = false;
+    }
+    if (formData.cN.length !== 16) {
+      cNErr.card = "Your card number must be 16 digits";
+      isValid = false;
+    }
+    if (formData.eD.length !== 4) {
+      eDErr.eD = "Expiry date must be four digits - MMYY";
+      isValid = false;
+    }
+    if (formData.nB.length !== 3) {
+      nBErr.cvc = "CVC must be 3 digits";
+      isValid = false;
+    }
+
+    setEmailErr(emailErr);
+    setCNErr(cNErr);
+    setEDErr(eDErr);
+    setNBErr(nBErr);
+    return isValid;
+  };
+
   const totalCost = newItems.reduce(
     (sum, i) => (sum += i.quantity * parseFloat(i.price.replace(/[$,]+/g, ""))),
     0.0
   );
 
-  return (
-    <Wrapper33>
-      {subStatus !== "confirmed" ? (
-        <>
-          <Logo
-            src={require("../assets/checkout-banner (1).png")}
-            alt="checkout"
-          ></Logo>
-          <WrapperHeader>
-            <DetailsYour>Your details</DetailsYour>
-            <DetailsYour>Your order</DetailsYour>
-          </WrapperHeader>
-          <MainWrapper>
-            <Wrapper>
-              <UserForm onSubmit={handleSubmit}>
-                <Input
-                  name="givenName"
-                  placeholder="First Name"
-                  type="text"
-                  handleChange={handleChange}
-                  value={formData.givenName}
-                />
-                <Input
-                  name="surname"
-                  placeholder="Last Name"
-                  type="text"
-                  handleChange={handleChange}
-                  value={formData.surname}
-                />
-                <Input
-                  name="email"
-                  placeholder="Email"
-                  type="email"
-                  handleChange={handleChange}
-                  value={formData.email}
-                />{" "}
-                <Input
-                  name="phoneNumber"
-                  placeholder="Phone Number"
-                  type="text"
-                  handleChange={handleChange}
-                  value={formData.phoneNumber}
-                />
-                <Input
-                  name="AddressLine1"
-                  placeholder="Address Line 1"
-                  type="text"
-                  handleChange={handleChange}
-                  value={formData.AddressLine1}
-                />
-                <Input
-                  name="City"
-                  placeholder="City"
-                  type="text"
-                  handleChange={handleChange}
-                  value={formData.City}
-                />
-                <Input
-                  name="Province"
-                  placeholder="Province"
-                  type="text"
-                  handleChange={handleChange}
-                  value={formData.Province}
-                />
-                <Input
-                  name="Country"
-                  placeholder="Country"
-                  type="text"
-                  handleChange={handleChange}
-                  value={formData.Country}
-                />
-                <Input
-                  name="Postcode"
-                  placeholder="Postcode"
-                  type="text"
-                  handleChange={handleChange}
-                  value={formData.Postcode}
-                />
-                <Input
-                  name="CardNumber"
-                  placeholder="16 Digit Card Number"
-                  type="number"
-                  handleChange={handleChange}
-                  value={formData.CardNumber}
-                />
-                <Input
-                  name="ExpiryDate"
-                  placeholder="Expiry Date MMYY"
-                  type="number"
-                  handleChange={handleChange}
-                  value={formData.ExpiryDate}
-                />
-                <Input
-                  name="CVC"
-                  placeholder="3 Digit CVC Number"
-                  type="number"
-                  handleChange={handleChange}
-                  value={formData.CVC}
-                />{" "}
-                <Button
-                  // disabled={disabled}
+  useEffect(() => {
+    Object.values(formData).includes("") || formValidation() == false
+      ? setDisabled(true)
+      : setDisabled(false);
+  }, [cart, formData, setDisabled]);
 
-                  handleClick={handleSubmit}
-                  subStatus={subStatus}
-                />
-              </UserForm>
-            </Wrapper>
-            <Wrapper1>
-              <List>
-                {newItems &&
-                  newItems.map((item) => {
-                    return (
-                      <Items key={item._id}>
-                        <Header>
-                          <Title>
-                            <h3>{item.name} </h3>
-                          </Title>
-                          <Delete>
-                            <DeleteButton
-                              onClick={() => {
-                                dispatch(removeItem(item._id));
+  return (
+    <PageWrapper>
+      <>
+        <Logo
+          src={require("../assets/checkout-banner (1).png")}
+          alt="checkout"
+        ></Logo>
+        <WrapperHeader>
+          <DetailsYour>Your details</DetailsYour>
+          <DetailsYour>Your order</DetailsYour>
+        </WrapperHeader>
+        <MainWrapper>
+          <Wrapper>
+            <UserForm onSubmit={handleSubmit}>
+              <Input
+                name="givenName"
+                placeholder="First Name"
+                type="text"
+                handleChange={handleChange}
+                value={formData.givenName}
+              />
+              <Input
+                name="surname"
+                placeholder="Last Name"
+                type="text"
+                handleChange={handleChange}
+                value={formData.surname}
+              />
+              <Input
+                name="email"
+                placeholder="Email address"
+                type="email"
+                handleChange={handleChange}
+                value={formData.email}
+              />
+              {Object.keys(emailErr).map((key, i) => {
+                return <Warning key={i}>{emailErr[key]}</Warning>;
+              })}
+              <Input
+                name="phoneNumber"
+                placeholder="Phone Number"
+                type="number"
+                handleChange={handleChange}
+                value={formData.phoneNumber}
+              />
+              <Input
+                name="addressLine1"
+                placeholder="Address Line 1"
+                type="text"
+                handleChange={handleChange}
+                value={formData.addressLine1}
+              />
+              <Input
+                name="city"
+                placeholder="City"
+                type="text"
+                handleChange={handleChange}
+                value={formData.city}
+              />
+              <Input
+                name="province"
+                placeholder="Province"
+                type="text"
+                handleChange={handleChange}
+                value={formData.province}
+              />
+              <Input
+                name="country"
+                placeholder="Country"
+                type="text"
+                handleChange={handleChange}
+                value={formData.country}
+              />
+              <Input
+                name="postcode"
+                placeholder="Postcode"
+                type="text"
+                handleChange={handleChange}
+                value={formData.postcode}
+              />
+              <Input
+                name="cN"
+                placeholder="16 Digit Card Number"
+                type="text"
+                handleChange={handleChange}
+                value={formData.cN}
+              />
+              {Object.keys(cNErr).map((key, i) => {
+                return <Warning key={i}>{cNErr[key]}</Warning>;
+              })}
+              <Input
+                name="eD"
+                placeholder="Expiry Date MMYY"
+                type="text"
+                handleChange={handleChange}
+                value={formData.eD}
+              />
+              {Object.keys(eDErr).map((key, i) => {
+                return <Warning key={i}>{eDErr[key]}</Warning>;
+              })}
+              <Input
+                name="nB"
+                placeholder="3 Digit CVC Number"
+                type="text"
+                handleChange={handleChange}
+                value={formData.nB}
+              />
+              {Object.keys(nBErr).map((key, i) => {
+                return <Warning key={i}>{nBErr[key]}</Warning>;
+              })}
+              <Button
+                disabled={disabled}
+                handleClick={handleSubmit}
+                subStatus={subStatus}
+              />
+            </UserForm>
+          </Wrapper>
+          <Wrapper1>
+            <List>
+              {newItems &&
+                newItems.map((item) => {
+                  return (
+                    <Items key={item._id}>
+                      <Header>
+                        <Title>
+                          <h3>{item.name} </h3>
+                        </Title>
+                        <Delete>
+                          <DeleteButton
+                            onClick={() => {
+                              dispatch(removeItem(item._id));
+                            }}
+                          >
+                            X
+                          </DeleteButton>
+                        </Delete>
+                      </Header>
+                      <ItemWrapper>
+                        <ItemImg src={item.imageSrc} />
+                        <ItemTotals>
+                          <div>
+                            <Price>{item.price}</Price>
+                          </div>
+                          <Quantity>
+                            <InputQt
+                              value={item.quantity}
+                              onChange={(event) => {
+                                dispatch(
+                                  updateQuantity({
+                                    itemId: item._id,
+                                    quantity: event.target.value,
+                                  })
+                                );
                               }}
-                            >
-                              X
-                            </DeleteButton>
-                          </Delete>
-                        </Header>
-                        <ItemWrapper>
-                          <ItemImg src={item.imageSrc} />
-                          <ItemTotals>
-                            <div>
-                              <Price>{item.price}</Price>
-                            </div>
-                            <Quantity>
-                              <InputQt
-                                value={item.quantity}
-                                onChange={(event) => {
-                                  dispatch(
-                                    updateQuantity({
-                                      itemId: item._id,
-                                      quantity: event.target.value,
-                                    })
-                                  );
-                                }}
-                              />
-                            </Quantity>
-                          </ItemTotals>
-                        </ItemWrapper>
-                      </Items>
-                    );
-                  })}
-              </List>
-              <Total>Total Price to Pay: ${totalCost.toFixed(2)}</Total>
-            </Wrapper1>
-          </MainWrapper>
-          {subStatus === "error" && <ErrorMsg> {errMessage} </ErrorMsg>}
-        </>
-      ) : (
-        history.push("/confirmation")
-      )}
-    </Wrapper33>
+                            />
+                          </Quantity>
+                        </ItemTotals>
+                      </ItemWrapper>
+                    </Items>
+                  );
+                })}
+            </List>
+            <Total>Total Price to Pay: ${totalCost.toFixed(2)}</Total>
+          </Wrapper1>
+        </MainWrapper>
+      </>
+    </PageWrapper>
   );
 };
 export default Checkout;
 
-const ErrorMsg = styled.div`
-  display: flex;
-  position: relative;
-  top: -320px;
-  margin-left: 30px;
-  margin-right: 30px;
-  border: 2px dashed red;
-  height: 75px;
-  width: 50%;
-  justify-content: center;
-  align-items: center;
+const Warning = styled.div`
   color: red;
-  font-size: 20px;
+  display: flex;
+  height: 16px;
+  align-content: center;
+  font-size: 12px;
 `;
-const Wrapper33 = styled.div``;
+const PageWrapper = styled.div``;
 const Logo = styled.img`
   width: 100vw;
   display: flex;

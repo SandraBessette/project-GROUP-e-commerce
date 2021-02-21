@@ -5,7 +5,6 @@ const { v4: uuidv4 } = require("uuid");
 const fs = require("fs");
 const { sortAndFilter } = require("./helpers");
 
-
 const getSingleItem = (req, res) => {
   const id = req.params.id;
 
@@ -98,14 +97,14 @@ const addPurchase = (req, res) => {
     surname,
     email,
     phoneNumber,
-    AddressLine1,
-    City,
-    Province,
-    Country,
-    Postcode,
-    CardNumber,
-    ExpiryDate,
-    CVC,
+    addressLine1,
+    city,
+    province,
+    country,
+    postcode,
+    cN,
+    eD,
+    nB,
     newItems,
   } = req.body;
   const purchase = {
@@ -114,56 +113,57 @@ const addPurchase = (req, res) => {
     surname,
     email,
     phoneNumber,
-    AddressLine1,
-    City,
-    Province,
-    Country,
-    Postcode,
-    CardNumber,
-    ExpiryDate,
-    CVC,
+    addressLine1,
+    city,
+    province,
+    country,
+    postcode,
+    cN,
+    eD,
+    nB,
     newItems,
   };
   console.log(purchase);
-  if (
-    !givenName ||
-    !surname ||
-    !email ||
-    !phoneNumber ||
-    !AddressLine1 ||
-    !City ||
-    !Province ||
-    !Country ||
-    !Postcode ||
-    !CardNumber ||
-    !ExpiryDate ||
-    !CVC
-  ) {
-    res.status(400).json({
-      status: "error",
-      error: "missing-data",
-    });
-  } else if (CardNumber.length !== 16) {
-    res.status(400).json({
-      status: "error",
-      error: "missing-data",
-    });
-  } else if (ExpiryDate.length !== 4) {
-    res.status(400).json({
-      status: "error",
-      error: "missing-data",
-    });
-  } else if (CVC.length !== 3) {
-    res.status(400).json({
-      status: "error",
-      error: "missing-data",
-    });
-  } else if (!email.includes("@")) {
-    res.status(400).json({
-      status: "error",
-      error: "missing-data",
-    });
-  } else {
+  // if (
+  //   !givenName ||
+  //   !surname ||
+  //   !email ||
+  //   !phoneNumber ||
+  //   !AddressLine1 ||
+  //   !City ||
+  //   !Province ||
+  //   !Country ||
+  //   !Postcode ||
+  //   !CardNumber ||
+  //   !ExpiryDate ||
+  //   !CVC
+  // ) {
+  //   res.status(400).json({
+  //     status: "error",
+  //     error: "missing-data",
+  //   });
+  // } else if (CardNumber.length !== 16) {
+  //   res.status(400).json({
+  //     status: "error",
+  //     error: "missing-data",
+  //   });
+  // } else if (ExpiryDate.length !== 4) {
+  //   res.status(400).json({
+  //     status: "error",
+  //     error: "missing-data",
+  //   });
+  // } else if (CVC.length !== 3) {
+  //   res.status(400).json({
+  //     status: "error",
+  //     error: "missing-data",
+  //   });
+  // } else if (!email.includes("@")) {
+  //   res.status(400).json({
+  //     status: "error",
+  //     error: "missing-data",
+  //   });
+  // } else {
+  {
     purchases.push(req.body);
     fs.writeFileSync("./data/purchases.json", JSON.stringify(purchases));
     res.status(200).send({
@@ -190,8 +190,6 @@ const addPurchase = (req, res) => {
 //   }
 // };
 
-
-
 module.exports = {
   getSingleItem,
   getCompanyById,
@@ -199,6 +197,6 @@ module.exports = {
   getItems,
   //getItemsGroup,
   addPurchase,
-  getItemsCategory
+  getItemsCategory,
   //getItemBySearch
 };
