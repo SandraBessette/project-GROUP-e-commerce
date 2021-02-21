@@ -7,20 +7,25 @@ const ErrorPage = () => {
   return (
     <Wrapper>
       <StyledDiv>
-        <Logo
-          src={require("../assets/sorrySmiley.png")}
-          alt="Sorry"
-          height="250px"
-        ></Logo>
-        <Sorry>SORRY</Sorry>
+        <Sorry>
+          <h1>SORRY</h1>
+        </Sorry>
+        <Image>
+          <Logo
+            src={require("../assets/Robot_error.webp")}
+            alt="Sorry"
+            height="350px"
+          ></Logo>
+        </Image>
       </StyledDiv>
       <StyledDiv2>
+       
         <Text>Something went wrong on our end...</Text>
         <Text>
           Please go back and try again or go to{" "}
           <LinkTo to={`/`}>Wear Tek's home page.</LinkTo>
         </Text>
-        <Divider />{" "}
+       
         <Logo1
           src={require("../assets/wearteklogo.png")}
           alt="WearTek"
@@ -33,20 +38,7 @@ const ErrorPage = () => {
 
 export default ErrorPage;
 
-const Logo1 = styled.img``;
-
-const Divider = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 60vw;
-  height: 2px;
-  background-color: ${COLORS.fourth};
-  margin-top: 50px;
-  margin-bottom: 70px;
-`;
-
 const Wrapper = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,42 +46,76 @@ const Wrapper = styled.div`
   border-style: solid;
   border-width: 1px;
   border-color: gray;
-  height: 800px;
-`;
-const Text = styled.div`
-  font-size: 20px;
-  margin-top: 30px;
-`;
-
-const LinkTo = styled(Link)`
-  /* padding: 20px; */
-  color: ${COLORS.secondary};
-  text-decoration: none;
-  &:hover {
-    color: ${COLORS.fourth};
+  min-height: 700px;
+  @media (max-width: 840px) {
+ 
+  }
+  @media (max-width: 768px) and (max-height: 1018px) {
+    
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
   }
 `;
-
 const StyledDiv = styled.div`
-  position: absolute;
-  top: 50px;
-  left: 300px;
   display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
   margin-top: 30px;
 `;
 const StyledDiv2 = styled.div`
   align-items: center;
   display: flex;
+  justify-content:center;
   flex-direction: column;
-  margin-top:160px;
 `;
-
-const Logo = styled.img`
-`;
-
 const Sorry = styled.div`
-  font-size: 140px;
-  margin-left: 130px;
+  width: 30vw;
+  height: 15vh;
+  display: flex;
+  background-color:black;
+  color:white;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   font-weight: lighter;
+  border: 5px double white;
+  @media (max-width: 840px) {
+    width: 50vw;
+    height:10vh;
+}
+@media (max-width: 768px) and (max-height: 1018px) {
+ 
+}
+@media (max-width: 650px) and (max-height: 850px) {
+  font-size: 20px;
+  width: 70vw;
+    height:10vh;
+}
 `;
+const Image = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+const Logo1 = styled.img``;
+
+
+
+const Text = styled.div`
+  font-size: 20px;
+
+`;
+
+const LinkTo = styled(Link)`
+  color: ${COLORS.secondary};
+  text-decoration: none;
+  display:flex;
+
+justify-content:center;
+  &:hover {
+    color: ${COLORS.fourth};
+  }
+`;
+
+const Logo = styled.img``;
