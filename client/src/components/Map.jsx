@@ -4,9 +4,7 @@ import LocationPin from "./LocationPin";
 import styled from "styled-components";
 import { COLORS } from "../constants";
 
-
 const Map = ({ location, zoomLevel }) => {
- 
   return (
     <>
       <Wrapper>
@@ -16,8 +14,7 @@ const Map = ({ location, zoomLevel }) => {
           <MapActual>
             <GoogleMapReact
               bootstrapURLKeys={{
-                key: process.env.REACT_APP_GOOGLE_KEY
-                
+                key: process.env.REACT_APP_GOOGLE_KEY,
               }}
               defaultCenter={location}
               defaultZoom={zoomLevel}
@@ -50,22 +47,26 @@ const Map = ({ location, zoomLevel }) => {
 
 export default Map;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  margin-top: 120px;
+`;
 
 const Map1 = styled.div`
-  position: relative;
-  top: -220px;
   height: 500px;
   text-align: center;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 100vw;
+  width: 100%;
 `;
 const Text = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 100%;
   margin-bottom: 30px;
   font-weight: bold;
 `;
@@ -75,7 +76,7 @@ const MapActual = styled.div`
   height: 300px;
 `;
 const Address = styled.div`
-  width: 100vw;
+  width: 100%;
   margin-top: 30px;
   display: flex;
   font-size: 17px;
@@ -86,15 +87,15 @@ const Address = styled.div`
 const Logo1 = styled.img`
   display: flex;
   justify-content: center;
-  margin-top: 90px;
+  margin: 20px;
 `;
 const LogoWrapper = styled.div`
   display: flex;
   justify-content: center;
-  width: 100vw;
+  width: 100%;
+  margin-bottom: 80px;
 `;
 const Bold = styled.div`
   font-weight: bold;
   margin-left: 10px;
 `;
-
