@@ -64,11 +64,11 @@ const Confirmation = () => {
       <ConfirmationWrapper>
         <Details>Delivery address</Details>
         <Details2>
-          <div>{data.AddressLine1}</div>
-          <div>{data.City}</div>
-          <div>{data.Province}</div>
-          <div>{data.Country}</div>
-          <div>{data.Postcode}</div>
+          <div>{data.addressLine1}</div>
+          <div>{data.city}</div>
+          <div>{data.province}</div>
+          <div>{data.country}</div>
+          <div>{data.postcode}</div>
         </Details2>
       </ConfirmationWrapper>
 
@@ -80,8 +80,8 @@ const Confirmation = () => {
       <ConfirmationWrapper>
         <Details>Your Order Summary:</Details>
         <FlexWrapper>
-          {data.newItems.map((item) => (
-            <Details2>
+          {data.newItems.map((item, i) => (
+            <Details2 key={i}>
               {item.name} - Quantity ({item.quantity})
             </Details2>
           ))}

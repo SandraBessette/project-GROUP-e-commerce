@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import MapSection from './Map'
+import MapSection from "./Map";
 
 import styled from "styled-components";
 import Body from "./Body";
 import Footer from "./Footer";
 import Header from "./Header";
-import { createBrowserHistory } from 'history';
-import { useHistory } from 'react-router-dom';
+import { createBrowserHistory } from "history";
+import { useHistory } from "react-router-dom";
 
 import GlobalStyles from "../GlobalStyles";
 
