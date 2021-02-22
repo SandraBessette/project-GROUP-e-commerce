@@ -4,7 +4,7 @@ import Button from "./Button";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { removeItem, updateQuantity } from "../actions";
+import { removeItem, updateQuantity, clearCart } from "../actions";
 import { getStoreItemArray } from "../reducers/item-reducer";
 import { COLORS } from "../constants";
 
@@ -48,7 +48,7 @@ const Checkout = () => {
   const handleSubmit = (ev) => {
     console.log("sss");
     ev.preventDefault();
-
+dispatch(clearCart())
     setSubStatus("pending");
     {
       fetch("/purchase", {
@@ -62,9 +62,11 @@ const Checkout = () => {
         .then((response) => response.json())
         .then((response) => {
           const { status, error } = response;
+
           if (status === 200) {
             setDataReceived(response.data);
             localStorage.setItem("received", JSON.stringify(response.data));
+
             setSubStatus("confirmed");
             history.push("/confirmation");
           } else if (error) {

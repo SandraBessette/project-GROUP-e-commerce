@@ -145,7 +145,7 @@ const List = styled.div`
 
 const Items = styled.div`
   display: flex;
-
+  min-width: 55vw;
   justify-content: space-around;
   padding: 15px;
   border-bottom: lightgray 1px solid;
@@ -160,20 +160,24 @@ const Items = styled.div`
 const Main = styled.div`
   display: flex;
   flex-direction: column;
+  @media (max-width: 768px) and (max-height: 900px) {
+    padding: 10px;
+  }
+  @media (max-width: 650px) and (max-height: 850px) {
+  }
 `;
 const Header = styled.div`
   display: flex;
   justify-content: space-evenly;
-
+  flex-wrap: wrap;
+  max-width: 40vw;
   @media (max-width: 768px) and (max-height: 900px) {
-    justify-content: space-evenly;
+    max-width: 60vw;
+    flex-wrap: nowrap;
   }
   @media (max-width: 650px) and (max-height: 850px) {
-    width: 90vw;
-    font-size: 90%;
-    padding: 10px;
+    padding-right: 10px;
     justify-content: space-evenly;
-    align-items: center;
   }
 `;
 const Title = styled.div``;
@@ -193,6 +197,7 @@ const DeleteButton = styled.button`
 const ItemWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+ 
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -223,7 +228,8 @@ const Description = styled.div`
     flex-direction: column;
   }
   @media (max-width: 650px) and (max-height: 850px) {
-    flex-direction: row;
+
+    flex-direction: column;
     align-items: center;
   }
 `;
@@ -231,6 +237,10 @@ const Category = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 20px;
+  @media (max-width: 650px) and (max-height: 850px) {
+
+padding-top:15px;
+}
 `;
 const SubCategory = styled.div``;
 

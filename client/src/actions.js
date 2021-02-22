@@ -12,7 +12,10 @@ export const updateQuantity = ({ itemId, quantity }) => ({
   itemId,
   quantity,
 });
-
+export const clearCart = () => ({
+  type : 'CLEAR_CART'
+  
+  });
 export const requestStoreInfo = () => ({
   type: "REQUEST_STORE_INFO",
 });
