@@ -9,6 +9,7 @@ const moment = require("moment");
 
 const Confirmation = () => {
   const [data, setData] = useState("");
+ 
   useEffect(() => {
     const receivedData = localStorage.getItem("received");
     console.log("receivedData", JSON.parse(receivedData));
@@ -30,14 +31,8 @@ const Confirmation = () => {
   return (
     <Wrapper>
       <Logos>
-        <Logo1
-          src={require("../assets/ThankYou.jpg")}
-          alt="WearTek"         
-        ></Logo1>
-        <Logo1
-          src={require("../assets/wearteklogo.png")}
-          alt="WearTek"          
-        ></Logo1>
+        <Logo1 src={require("../assets/ThankYou.jpg")} alt="WearTek"></Logo1>
+        <Logo1 src={require("../assets/wearteklogo.png")} alt="WearTek"></Logo1>
       </Logos>
       <Main>Thank you for your order!</Main>
       <Processing>
@@ -108,7 +103,7 @@ const Main = styled.div`
   margin-bottom: 50px;
   text-align: center;
 
-  @media (max-width: 768px) {       
+  @media (max-width: 768px) {
     font-size: 36px;
   }
 `;
@@ -131,7 +126,7 @@ const ConfirmationWrapper = styled.div`
   display: flex;
   width: 100%;
 
-  @media (max-width: 768px) {       
+  @media (max-width: 768px) {
     font-size: 14px;
   }
 `;
@@ -141,22 +136,22 @@ const FlexWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 50%;
-  @media (max-width: 768px) {       
-    width: 45% 
+  @media (max-width: 768px) {
+    width: 45%;
   }
 `;
 
 const Details = styled.div`
   display: flex;
   width: 50%;
-  
+
   font-weight: bold;
   justify-content: flex-end;
   text-align: right;
-  padding-right: 40px;  
+  padding-right: 40px;
 
-  @media (max-width: 768px) {       
-    width: 55% 
+  @media (max-width: 768px) {
+    width: 55%;
   }
 `;
 
@@ -191,8 +186,8 @@ const StyledIcon = styled(Icon)`
 `;
 
 const SpinnerWrapper = styled.div`
- display: flex;
- justify-content: center; 
+  display: flex;
+  justify-content: center;
 `;
- 
+
 export default Confirmation;

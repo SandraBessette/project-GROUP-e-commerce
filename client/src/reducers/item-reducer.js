@@ -32,11 +32,15 @@ export default function itemReducer(state = initialState, action) {
         },
       };
     }
+    case "CLEAR_CART": {
+      return state = initialState
+    }
+
     default:
       return state;
   }
 }
 
-export const getStoreItemArray = (state) => { 
+export const getStoreItemArray = (state) => {
   return Object.values(state.item);
 };
