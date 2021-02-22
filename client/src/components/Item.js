@@ -19,11 +19,14 @@ const Item = () => {
       Promise.all([
         fetch(`/item/${id}`).then(response => response.json()),
         fetch(`/company/${id}`).then(response => response.json())    
-      ]).then(([itemsData, compagnyData]) => {       
-        setItemData(itemsData.data);
-        setCompany(compagnyData.data);
-        setStatus("idle");
-         
+      ]).then(([itemsData, compagnyData]) => { 
+        if (itemsData.status === 200 && compagnyData.status === 200){      
+          setItemData(itemsData.data);
+          setCompany(compagnyData.data);
+          setStatus("idle");
+        }
+        else
+          setStatus("error");         
       }).catch(() => {
         setStatus("error");
       });
