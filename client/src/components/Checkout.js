@@ -48,10 +48,9 @@ const Checkout = () => {
   const handleSubmit = (ev) => {
     console.log("sss");
     ev.preventDefault();
-dispatch(clearCart())
-    setSubStatus("pending");
-    {
-      fetch("/purchase", {
+    dispatch(clearCart())
+    setSubStatus("pending");    
+    fetch("/purchase", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -74,8 +73,7 @@ dispatch(clearCart())
             // setErrMessage(errorMessages[error]);
           }
           console.log("hey", response.data);
-        });
-    }
+        });    
   };
 
   const formValidation = () => {
@@ -120,7 +118,7 @@ dispatch(clearCart())
   );
 
   useEffect(() => {
-    Object.values(formData).includes("") || formValidation() == false
+    Object.values(formData).includes("") || formValidation() === false
       ? setDisabled(true)
       : setDisabled(false);
   }, [cart, formData, setDisabled]);
