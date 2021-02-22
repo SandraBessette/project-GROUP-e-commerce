@@ -1,6 +1,6 @@
 const items = require("./data/items");
 const companies = require("./data/companies");
-const purchases = require("./data/purchases");
+// const purchases = require("./data/purchases");
 const { v4: uuidv4 } = require("uuid");
 const fs = require("fs");
 const { sortAndFilter } = require("./helpers");
@@ -163,14 +163,14 @@ const addPurchase = (req, res) => {
   //     error: "missing-data",
   //   });
   // } else {
-  {
-    purchases.push(req.body);
-    fs.writeFileSync("./data/purchases.json", JSON.stringify(purchases));
+  // {
+  //   purchases.push(req.body);
+  //   fs.writeFileSync("./data/purchases.json", JSON.stringify(purchases));
     res.status(200).send({
       status: 200,
       data: purchase,
     });
-  }
+  // }
 };
 
 //unused handler for searching
