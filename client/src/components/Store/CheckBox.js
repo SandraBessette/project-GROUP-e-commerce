@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const CheckBox = ({ id, value, name, handleChange, isChecked, children })=>{ 
+const CheckBox = ({ id, value, name, handleChange, isChecked, isAvailable, children })=>{
     return (
-        <Wrapper> 
+        <Wrapper isAvailable={isAvailable}> 
             <Label >           
                 <Input type="checkbox" name={name} onChange={(ev)=>handleChange(ev, id, children)} value={value} checked={isChecked} />
             {children}
@@ -20,6 +20,7 @@ const Wrapper = styled.div`
   color: black;
   font-size: 15px;
   font-weight: normal; 
+  display: ${p=>p.isAvailable ? 'block':'none' };   
 
   &:hover {     
    color: gray;  

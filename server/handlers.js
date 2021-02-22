@@ -35,16 +35,22 @@ const getCompanyById = (req, res) => {
   }
 };
 
-const getItems = (req, res) => {
-  const { sort_by, price, body_location } = req.query;
+const getItems = (req, res) => {    
+  const { sort_by, price, body_location } = req.query;  
+ 
+  //determine valid body location
+  let bodyLocationObject = {};
+  items.forEach(item => {
+    if (item.body_location)
+      bodyLocationObject[item.body_location.toLowerCase()] = true;
+  });
 
-  //We need to clone the array because we want to keep the original intact and keep our default order.
-  // This way of cloning an array is good only with array of JSON data.
-  let clonedItems = JSON.parse(JSON.stringify(items));
-  //sort and filter the items if needed
-  clonedItems = sortAndFilter(clonedItems, sort_by, price, body_location);
+   //We need to clone the array because we want to keep the original intact and keep our default order. 
+  let clonedItems = JSON.parse(JSON.stringify(items)); 
+  //sort and filter the items if needed   
+  clonedItems = sortAndFilter(clonedItems, sort_by, price, body_location, bodyLocationObject); 
 
-  res.status(200).json({ status: 200, message: "success", data: clonedItems });
+  res.status(200).json({ status: 200, message: "success", data: {items: clonedItems, bodyLocation: bodyLocationObject }});
 };
 
 const getCompagnies = (req, res) => {
@@ -52,36 +58,34 @@ const getCompagnies = (req, res) => {
 };
 
 const getItemsCategory = (req, res) => {
-  const { category } = req.params;
-  const { sort_by, price, body_location } = req.query;
-  console.log(req.query);
+    const { category } = req.params;   
+    const { sort_by, price, body_location } = req.query; 
+    console.log(req.query);
+   
+    if ( !category)
+      return res.status(400).json({ status: 400, message: "unknown category", data: {category} });
 
-  if (!category)
-    return res
-      .status(400)
-      .json({ status: 400, message: "unknown category", data: { category } });
+   //filter the group by category
+    let itemsGroup = items.filter((item)=>{    
+          if (item.category)    
+            return item.category.toLowerCase().replace(/\s/g, "") === category.toLowerCase();  
+          return false;     
+    });
 
-  //filter the group by category
-  let itemsGroup = items.filter((item) => {
-    if (item.category)
-      return (
-        item.category.toLowerCase().replace(/\s/g, "") ===
-        category.toLowerCase()
-      );
-    return false;
-  });
+    if (itemsGroup.length === 0)
+      return res.status(400).json({ status: 400, message: "category not found", data: {category} });
 
-  if (itemsGroup.length === 0)
-    return res
-      .status(400)
-      .json({ status: 400, message: "category not found", data: { category } });
+    //determine valid body location for a category
+    let bodyLocationObject = {};  
+    itemsGroup.forEach(item => {   
+      if (item.body_location)
+        bodyLocationObject[item.body_location.toLowerCase()] = true;
+    });
 
-  //sort and filter the items if needed
-  itemsGroup = sortAndFilter(itemsGroup, sort_by, price, body_location);
-
-  return res
-    .status(200)
-    .json({ status: 200, message: "success", data: itemsGroup });
+    //sort and filter the items if needed
+    itemsGroup = sortAndFilter(itemsGroup, sort_by, price, body_location, bodyLocationObject);   
+    
+    return res.status(200).json({ status: 200, message: "success", data: {items: itemsGroup , bodyLocation: bodyLocationObject }});  
 };
 
 // add a purchase "/purchase"

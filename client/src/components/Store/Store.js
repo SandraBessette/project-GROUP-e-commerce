@@ -43,14 +43,14 @@ const Store = () => {
     return text;  
   }, [category, sort, price, body_location]);  
 
-  useEffect(() => {   
+  useEffect(() => {  
     dispatch(requestStoreInfo());
     const text = createFetchEndPoint(); 
     fetch(text)
       .then((res) => res.json())
       .then((json) => {
         const { status, data, message} = json;     
-        if (status === 200) {           
+        if (status === 200) { 
           dispatch(receiveStoreInfo(data));
         } else {         
           dispatch(receiveStoreInfoError(message));
@@ -59,7 +59,7 @@ const Store = () => {
       .catch((e) => {       
         dispatch(receiveStoreInfoError(e));
       });
-  }, [createFetchEndPoint]);
+  }, [createFetchEndPoint, dispatch]);
 
 
   if (status=== "error"){
@@ -71,22 +71,24 @@ const Store = () => {
   return (
     <Wrapper>  
       <SideBar />
-      <RightWrapper>       
-        {<Image src={TitleStore[category].image} alt="image" objectPosition={TitleStore[category].objectPosition}></Image>}
-        {<Banner />}
+      <RightWrapper>   
+       {TitleStore[category]   && <>
+        <Image src={TitleStore[category].image} alt="image" objectPosition={TitleStore[category].objectPosition}></Image>
+        <Banner />
         <Title>{TitleStore[category].name.toUpperCase()}</Title>        
         <FilterWrapper>
           {Object.values(body_location).map((item)=>{
-              if (item.isChecked) {
-                return (<Span key={item.id}>{item.label}
+              if (item.isChecked ) {
+                return (<Box  key={item.id} isAvailable={currentStore.bodyLocation[item.value] !== undefined}> <span>{item.label}</span> 
                           <Button title="Clear filter" onClick={(ev)=>handleClearBodyLocationFilterItem(ev, item.id)}>x</Button>
-                        </Span>)
+                        </Box >)
               }
               return null;
             })  
           }
-          <Span>{price.label}</Span>
+          <Box isAvailable={true}>{price.label}</Box >
         </FilterWrapper>
+        </>}
         <Dropdown />         
         {status === "loading" && <Spinner />} 
         {status === "idle" && currentStore.store.length ===0 && <Icon><VscSearchStop color='lightgray' size={200} /></Icon>}  
@@ -156,14 +158,17 @@ const Title = styled.p`
   }
   `;
 
-  const Span = styled.span`     
+  const Box = styled.div`     
     display: flex;
     align-items: center;
-    font-size: 14px;    
-    background-color: #E0E0E0;
+    font-size: 14px;  
+    background-color: ${(p)=>p.isAvailable ? `${COLORS.fifth}`  : ' #F0F0F0' };
     margin: 5px;
     border-radius: 8px;
     padding: 0px 10px 2px 10px;    
+    & span {     
+      color: ${(p)=>p.isAvailable ? 'black' : 'grey' };
+    }          
   `;
 
   const FilterWrapper = styled.div`  
@@ -182,10 +187,11 @@ const Title = styled.p`
 
   const Button = styled.button`
     border: none;   
-    background-color: #E0E0E0;
+    background-color: inherit;
     margin-left: 10px;
     padding: 0;
     color: gray; 
+  
     :hover:enabled {   
         cursor: pointer;
         opacity: 0.7;         

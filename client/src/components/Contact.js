@@ -101,7 +101,7 @@ const Textparagraph = styled.p`
   }
 `;
 
-const EmailPhoneNo = styled.p`
+const EmailPhoneNo = styled.div`
   font-size: 17px;
   margin: 10px;
   padding: 10px;

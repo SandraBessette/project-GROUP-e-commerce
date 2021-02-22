@@ -3,8 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import { useHistory } from "react-router-dom";
 
-import {
-  RiHome2Line,
+import {  
   RiShoppingCartLine,
   RiInformationLine,
   RiStore2Line,
@@ -45,7 +44,7 @@ const Header = () => {
       .then((json) => {
         const { status, data, message } = json;
         if (status === 200) {
-          setData(data);
+          setData(data.items);
         } else {
           console.log(message);
         }

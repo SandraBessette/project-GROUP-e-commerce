@@ -7,10 +7,8 @@ const Suggestion = ({
   value,
   handleSelect,
   setSelectedSuggestionIndex,
-  selectedSuggestionIndex,
-  status,
-  setStatus,
-}) => {
+  selectedSuggestionIndex,  
+}) => {  
   if (value.length <= 1) {
     return "";
   }
@@ -18,9 +16,6 @@ const Suggestion = ({
     return item.name.toLowerCase().includes(value.toLowerCase());
   });
   let searchResults10entries = searchResults.slice(0, 10);
-
-  if (searchResults10entries.length > 0) setStatus(true);
-  else setStatus(false);
 
   return (
     <Suggestions>
@@ -38,6 +33,8 @@ const Suggestion = ({
                   handleSelect(result._id);
                   return;
                 }
+                default: 
+                  return;
               }
             }}
             style={{

@@ -18,7 +18,7 @@ const SideBar = ()=>{
     const [categoryHidden, setCategoryHidden] = useState(false);
     const [locationHidden, setLocationHidden] = useState(true);
     const [priceHidden, setPriceHidden] = useState(true);
-    const {filters:{price, body_location}}= useSelector((state)=>state.store); 
+    const {currentStore, filters:{price, body_location}}= useSelector((state)=>state.store); 
     const dispatch = useDispatch();    
    
     const handleClickCategory = (ev)=>{       
@@ -97,6 +97,7 @@ const SideBar = ()=>{
                                     value={data.value}                           
                                     name={data.value}
                                     isChecked={data.isChecked}
+                                    isAvailable={currentStore !== null && currentStore.bodyLocation[data.value] !== undefined}
                                     handleChange={handleChangeFilterBodyLocation}
                                 >
                                     {data.label}

@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import MapSection from "./Map";
+import React from "react";
+import { Router } from "react-router-dom";
 
 import styled from "styled-components";
 import Body from "./Body";
 import Footer from "./Footer";
 import Header from "./Header";
-import { createBrowserHistory } from "history";
-import { useHistory } from "react-router-dom";
+import { createBrowserHistory } from 'history';
 
 import GlobalStyles from "../GlobalStyles";
 
 function App() {
   const historyInstance = createBrowserHistory();
-  const history = useHistory();
+ 
   return (
     <Router history={historyInstance}>
       <Wrapper>

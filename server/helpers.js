@@ -6,7 +6,7 @@ const compareAscPrice = (a, b) =>{
     return parseFloat(b.price.replace(/[$,]/g,"")) - parseFloat(a.price.replace(/[$,]/g,""));
   };
   
-  const sortAndFilter = (itemsArray, sortBy, priceFilter, bodyLocationFilter) =>{   
+  const sortAndFilter = (itemsArray, sortBy, priceFilter, bodyLocationFilter, bodyLocationObject) =>{   
     
     if (priceFilter) {
       const gte = priceFilter.gte ? priceFilter.gte : 0;
@@ -15,13 +15,19 @@ const compareAscPrice = (a, b) =>{
           return parseFloat(item.price.replace(/[$,]/g,"")) >= gte &&  parseFloat(item.price.replace(/[$,]/g,"")) < lte; 
         });
     }
-
-    if (bodyLocationFilter) {
-      itemsArray = itemsArray.filter((item)=>{  
-          if (item.body_location)       
-            return bodyLocationFilter.includes(item.body_location.toLowerCase());
-          else false;        
+    
+    if (bodyLocationFilter && Array.isArray(bodyLocationFilter)) {  
+      const validBodyLocationFilter = bodyLocationFilter.filter((bodyLocation)=>{      
+        return bodyLocationObject[bodyLocation] !== undefined;
       });
+      
+      if (validBodyLocationFilter.length !== 0) { 
+        itemsArray = itemsArray.filter((item)=>{  
+            if (item.body_location)       
+              return validBodyLocationFilter.includes(item.body_location.toLowerCase());
+            else false;        
+        });
+      }
     }
 
     if (sortBy === '+price') {
@@ -37,6 +43,7 @@ const compareAscPrice = (a, b) =>{
   module.exports = {
     sortAndFilter,
     compareAscPrice,
-    compareDescPrice
+    compareDescPrice,   
+   
   };
   

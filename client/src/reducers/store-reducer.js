@@ -78,7 +78,8 @@ export default function storeReducer(state = initialState, action) {
                 ...state,
                 currentStore: {
                     ...state.currentStore,
-                    store: [...action.store]                 
+                    bodyLocation: {...action.store.bodyLocation},
+                    store: [...action.store.items]                 
                 }, 
                 status: "idle"
             };
