@@ -1,7 +1,7 @@
 const initialState = {};
 
 export default function itemReducer(state = initialState, action) {
-  console.log(Object.values(state));
+ 
   switch (action.type) {
     case "ADD_ITEM": {
       return {

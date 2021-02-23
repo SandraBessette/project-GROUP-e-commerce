@@ -33,8 +33,7 @@ const Header = () => {
       return storeState.reduce(reducer, 0);
     };
 
-    const total = calculateTotalItem(newItems);
-    console.log("Total Items", total);
+    const total = calculateTotalItem(newItems);    
     setTotalItemsHeader(total);
   }, [newItems]);
 
