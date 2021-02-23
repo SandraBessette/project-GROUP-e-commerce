@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Input from "./Input";
 import Button from "./Button";
+import ErrorMsg from "./ErrorMsg";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -70,12 +71,15 @@ const Checkout = () => {
             history.push("/confirmation");
           } else if (error) {
             setSubStatus("error");
-            // setErrMessage(errorMessages[error]);
+
+            setErrMessage([error]);
+
           }
           console.log("hey", response.data);
         });    
   };
 
+ 
   const formValidation = () => {
     const emailErr = {};
     const cNErr = {};
@@ -112,18 +116,24 @@ const Checkout = () => {
     return isValid;
   };
 
+
   const totalCost = newItems.reduce(
     (sum, i) => (sum += i.quantity * parseFloat(i.price.replace(/[$,]+/g, ""))),
     0.0
   );
 
   useEffect(() => {
-    Object.values(formData).includes("") || formValidation() === false
+
+
+
+    Object.values(formData).includes("") || formValidation() == false
+
       ? setDisabled(true)
       : setDisabled(false);
   }, [cart, formData, setDisabled]);
 
   return (
+<>
     <PageWrapper>
       <>
         <Logo
@@ -290,65 +300,243 @@ const Checkout = () => {
         </MainWrapper>
       </>
     </PageWrapper>
+
+    <>
+      <Logo
+        src={require("../assets/checkout-banner (1).png")}
+        alt="checkout"
+      ></Logo>
+
+      <MainWrapper>
+        <Wrapper1>
+          <WrapperHeader>
+            <DetailsYour>Your order</DetailsYour>
+          </WrapperHeader>
+          <List>
+            {newItems &&
+              newItems.map((item) => {
+                return (
+                  <Items key={item._id}>
+                    <Header>
+                      <Title>
+                        <h3>{item.name} </h3>
+                      </Title>
+                      <Delete>
+                        <DeleteButton
+                          onClick={() => {
+                            dispatch(removeItem(item._id));
+                          }}
+                        >
+                          X
+                        </DeleteButton>
+                      </Delete>
+                    </Header>
+                    <ItemWrapper>
+                      <ItemImg src={item.imageSrc} />
+                      <ItemTotals>
+                        <div>
+                          <Price>{item.price}</Price>
+                        </div>
+                        <Quantity>
+                          <InputQt
+                            value={item.quantity}
+                            onChange={(event) => {
+                              dispatch(
+                                updateQuantity({
+                                  itemId: item._id,
+                                  quantity: event.target.value,
+                                })
+                              );
+                            }}
+                          />
+                        </Quantity>
+                      </ItemTotals>
+                    </ItemWrapper>
+                  </Items>
+                );
+              })}
+          </List>
+          <Total>Total Price to Pay: ${totalCost.toFixed(2)}</Total>
+        </Wrapper1>
+        <Wrapper2>
+          <WrapperHeader>
+            <DetailsYour>Your details</DetailsYour>
+          </WrapperHeader>
+          <UserForm onSubmit={handleSubmit}>
+            <Input
+              name="givenName"
+              placeholder="First Name"
+              type="text"
+              handleChange={handleChange}
+              value={formData.givenName}
+            />
+            <Input
+              name="surname"
+              placeholder="Last Name"
+              type="text"
+              handleChange={handleChange}
+              value={formData.surname}
+            />
+            <Input
+              name="email"
+              placeholder="Email address"
+              type="email"
+              handleChange={handleChange}
+              value={formData.email}
+            />
+            {Object.keys(emailErr).map((key, i) => {
+              return <Warning key={i}>{emailErr[key]}</Warning>;
+            })}
+            <Input
+              name="phoneNumber"
+              placeholder="Phone Number"
+              type="number"
+              handleChange={handleChange}
+              value={formData.phoneNumber}
+            />
+            <Input
+              name="addressLine1"
+              placeholder="Address Line 1"
+              type="text"
+              handleChange={handleChange}
+              value={formData.addressLine1}
+            />
+            <Input
+              name="city"
+              placeholder="City"
+              type="text"
+              handleChange={handleChange}
+              value={formData.city}
+            />
+            <Input
+              name="province"
+              placeholder="Province"
+              type="text"
+              handleChange={handleChange}
+              value={formData.province}
+            />
+            <Input
+              name="country"
+              placeholder="Country"
+              type="text"
+              handleChange={handleChange}
+              value={formData.country}
+            />
+            <Input
+              name="postcode"
+              placeholder="Postcode"
+              type="text"
+              handleChange={handleChange}
+              value={formData.postcode}
+            />
+            <Input
+              name="cN"
+              placeholder="16 Digit Card Number"
+              type="text"
+              handleChange={handleChange}
+              value={formData.cN}
+            />
+            {Object.keys(cNErr).map((key, i) => {
+              return <Warning key={i}>{cNErr[key]}</Warning>;
+            })}
+            <Input
+              name="eD"
+              placeholder="Expiry Date MMYY"
+              type="text"
+              handleChange={handleChange}
+              value={formData.eD}
+            />
+            {Object.keys(eDErr).map((key, i) => {
+              return <Warning key={i}>{eDErr[key]}</Warning>;
+            })}
+            <Input
+              name="nB"
+              placeholder="3 Digit CVC Number"
+              type="text"
+              handleChange={handleChange}
+              value={formData.nB}
+            />
+            {Object.keys(nBErr).map((key, i) => {
+              return <Warning key={i}>{nBErr[key]}</Warning>;
+            })}
+            <Button
+              disabled={disabled}
+              handleClick={handleSubmit}
+              subStatus={subStatus}
+            />
+            {subStatus === "error" && <ErrorMsg> {errMessage} </ErrorMsg>}
+          </UserForm>
+        </Wrapper2>
+      </MainWrapper>
+    </>
+</>
   );
 };
 export default Checkout;
 
-const Warning = styled.div`
-  color: red;
-  display: flex;
-  height: 16px;
-  align-content: center;
-  font-size: 12px;
-`;
-const PageWrapper = styled.div``;
 const Logo = styled.img`
   width: 100vw;
   display: flex;
 `;
 const WrapperHeader = styled.div`
   display: flex;
-  border-style: solid;
-  width: 100vw;
-  justify-content: space-around;
+  width: 50vw;
+  justify-content: space-between;
   margin-top: 50px;
   margin-bottom: 50px;
+  justify-content: center;
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+  }
 `;
+const PageWrapper = styled.div``;
+const Wrapper = styled.div``;
 const DetailsYour = styled.div`
   font-size: 30px;
   display: flex;
   justify-content: center;
   color: ${COLORS.third};
 `;
+
 const MainWrapper = styled.div`
   display: flex;
   justify-content: space-around;
   margin-bottom: 60px;
   width: 100vw;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 80vw;
+    resize: vertical;
+  }
 `;
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-style: solid;
-  width: 50vw;
-`;
-const UserForm = styled.div`
-  border: 3px lightgray;
-  border-radius: 5px;
-  padding: 40px;
-  width: 500px;
-`;
+
 const Wrapper1 = styled.div`
   display: flex;
   flex-direction: column;
   border-style: solid;
-  width: 650px;
-  align-content: left;
+  width: 50vw;
+  align-content: center;
+  padding-left: 40px;
+  margin-right: 40px;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 85vw;
+    resize: vertical;
+    padding: 0;
+  }
 `;
 const List = styled.div`
   display: flex;
   flex-direction: column;
+  padding-left: 90px;
 `;
 const Items = styled.div`
   display: flex;
@@ -360,9 +548,16 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 40rem;
+  width: 40vw;
+  resize: vertical;
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+    width: 65vw;
+  }
 `;
 const Title = styled.div``;
+
 const Delete = styled.div``;
 const DeleteButton = styled.button`
   background-color: white;
@@ -389,6 +584,9 @@ const ItemTotals = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `;
+const Price = styled.p`
+  font-weight: bolder;
+`;
 const Quantity = styled.div`
   padding: 5px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -402,12 +600,47 @@ const InputQt = styled.input`
   outline: none;
   border: none;
 `;
-const Price = styled.p`
-  font-weight: bolder;
-`;
 const Total = styled.h2`
   display: flex;
   justify-content: flex-end;
   margin-top: 70px;
+  font-size: 22px;
   color: ${COLORS.third};
+  @media (max-width: 768px) {
+    justify-content: center;
+    display: flex;
+    text-align: justify;
+    overflow: visible;
+    padding-left: 90px;
+  }
+`;
+const Wrapper2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-style: solid;
+  width: 50vw;
+  @media (max-width: 768px) {
+    display: flex;
+    width: 100vw;
+  }
+`;
+const UserForm = styled.div`
+  border: 3px lightgray;
+  border-radius: 5px;
+  padding: 40px;
+  resize: vertical;
+  width: 43vw;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    width: 75vw;
+  }
+`;
+const Warning = styled.div`
+  color: red;
+  display: flex;
+  height: 16px;
+  align-content: center;
+  font-size: 12px;
 `;
