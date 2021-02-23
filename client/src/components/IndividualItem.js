@@ -16,9 +16,7 @@ const IndividualItem = ({
   companyFrom,
   bodyLocation,
 }) => {
-  console.log(name);
-  //const [hidden, setHidden] = useState(true);
-  const dispatch = useDispatch();
+   const dispatch = useDispatch();
   const handleClick = (ev) => {
     ev.preventDefault();
     dispatch(

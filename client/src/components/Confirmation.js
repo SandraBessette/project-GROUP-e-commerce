@@ -11,15 +11,13 @@ const Confirmation = () => {
   const [data, setData] = useState("");
  
   useEffect(() => {
-    const receivedData = localStorage.getItem("received");
-    console.log("receivedData", JSON.parse(receivedData));
+    const receivedData = localStorage.getItem("received");   
     setData(JSON.parse(receivedData));
   }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
-  console.log("data", data);
+  }, []); 
 
   if (!data) {
     return (

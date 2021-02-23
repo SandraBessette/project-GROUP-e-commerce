@@ -26,10 +26,8 @@ const initialState = {
 
 const Checkout = () => {
   const [formData, setFormData] = useState(initialState);
-  const [disabled, setDisabled] = useState(false);
-  const [cart, setCart] = useState(null);
+  const [disabled, setDisabled] = useState(false);  
   const [subStatus, setSubStatus] = useState("idle");
-  const [dataReceived, setDataReceived] = useState("");
   const [errMessage, setErrMessage] = useState("");
   const [emailErr, setEmailErr] = useState({});
   const [cNErr, setCNErr] = useState({});
@@ -37,8 +35,7 @@ const Checkout = () => {
   const [nBErr, setNBErr] = useState({});
 
   const dispatch = useDispatch();
-  const newItems = useSelector(getStoreItemArray);
-  console.log("newItems", newItems);
+  const newItems = useSelector(getStoreItemArray); 
   const history = useHistory();
 
   const handleChange = (val, item) => {
@@ -46,10 +43,9 @@ const Checkout = () => {
     setErrMessage("");
   };
 
-  const handleSubmit = (ev) => {
-    console.log("sss");
+  const handleSubmit = (ev) => {  
     ev.preventDefault();
-    dispatch(clearCart())
+   
     setSubStatus("pending");    
     fetch("/purchase", {
         method: "POST",
@@ -63,20 +59,19 @@ const Checkout = () => {
         .then((response) => {
           const { status, error } = response;
 
-          if (status === 200) {
-            setDataReceived(response.data);
+          if (status === 200) {           
             localStorage.setItem("received", JSON.stringify(response.data));
-
+            dispatch(clearCart());
             setSubStatus("confirmed");
             history.push("/confirmation");
           } else if (error) {
             setSubStatus("error");
-
             setErrMessage([error]);
-
-          }
-          console.log("hey", response.data);
-        });    
+          }          
+        }).catch((e) => {
+          setSubStatus("error");
+          setErrMessage([e]);
+        });
   };
 
  
@@ -123,14 +118,11 @@ const Checkout = () => {
   );
 
   useEffect(() => {
-
-
-
-    Object.values(formData).includes("") || formValidation() == false
+    Object.values(formData).includes("") || formValidation() === false
 
       ? setDisabled(true)
       : setDisabled(false);
-  }, [cart, formData, setDisabled]);
+  }, [formData, setDisabled]);
 
   return (
     <>

@@ -5,7 +5,6 @@ const { v4: uuidv4 } = require("uuid");
 const fs = require("fs");
 const { sortAndFilter } = require("./helpers");
 
-// console.log(items);
 
 
 const getSingleItem = (req, res) => {
@@ -138,14 +137,9 @@ const addPurchase = (req, res) => {
     nB,
     newItems,
   };
+  
 
-  console.log(purchase);
-
-  {
-    purchases.push(req.body);
-    fs.writeFileSync("./data/purchases.json", JSON.stringify(purchases));
-
-    const itemsArray = purchase.newItems;
+    const itemsArray = [...purchase.newItems];
     itemsArray.forEach(myFunction);
 
     function myFunction(item, index, arr) {
@@ -153,7 +147,7 @@ const addPurchase = (req, res) => {
     }
     const value = "";
     errorArray = itemsArray.filter((item) => item !== value);
-    console.log(itemsArray);
+ 
     console.log(errorArray);
 
     if (errorArray.length > 0) {
@@ -164,49 +158,23 @@ const addPurchase = (req, res) => {
           itemsArray +
           " \r\n - - Please reduce the quantity and try again.",
       });
-    } else {
-      res.status(200).send({
-        status: 200,
-        data: purchase,
-      });
-    }
-  }
+    } else {     
+        purchases.push(purchase);
+        fs.writeFileSync("./data/purchases.json", JSON.stringify(purchases)); 
+        purchase.newItems.forEach((itemPurchase)=>{
+          items.forEach((item, index)=>{        
+            if (item._id === itemPurchase._id){              
+              items[index].numInStock -= itemPurchase.quantity;              
+            }
+          })
+        });
+        res.status(200).send({
+          status: 200,
+          data: purchase,
+        });
+    } 
 
 };
-
-
-
-
-  // {
-  //   purchases.push(req.body);
-  //   fs.writeFileSync("./data/purchases.json", JSON.stringify(purchases));
-
-  //   const itemsArray = purchase.newItems;
-  //   itemsArray.forEach(myFunction);
-
-  //   function myFunction(item, index, arr) {
-  //     arr[index] = item.numInStock < item.quantity ? item.name : "";
-  //   }
-  //   const value = "";
-  //   errorArray = itemsArray.filter((item) => item !== value);
-  //   console.log(itemsArray);
-  //   console.log(errorArray);
-
-  //   if (errorArray.length > 0) {
-  //     res.status(400).json({
-  //       status: "error",
-  //       error:
-  //         "This quantity of stock is not available for the following items - - \r\n" +
-  //         itemsArray +
-  //         " \r\n - - Please reduce the quantity and try again.",
-  //     });
-  //   } else {
-  //     res.status(200).send({
-  //       status: 200,
-  //       data: purchase,
-  //     });
-  //   }
-  // }
 
 
 module.exports = {
@@ -214,8 +182,6 @@ module.exports = {
   getCompanyById,
   getCompagnies,
   getItems,
-  //getItemsGroup,
   addPurchase,
   getItemsCategory,
-  //getItemBySearch
 };

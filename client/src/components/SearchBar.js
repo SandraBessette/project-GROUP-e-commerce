@@ -10,8 +10,7 @@ const SearchBar = ({ data }) => {
   const [value, setValue] = useState("");
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(0);  
 
-  const handleSelect = (suggestion) => {
-    console.log(suggestion);   
+  const handleSelect = (suggestion) => {  
     history.push(`/item/${suggestion}`);
     history.push("/temp");
     history.goBack();
