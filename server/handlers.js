@@ -1,6 +1,6 @@
 const items = require("./data/items");
 const companies = require("./data/companies");
-// const purchases = require("./data/purchases");
+const purchases = require("./data/purchases");
 const { v4: uuidv4 } = require("uuid");
 const fs = require("fs");
 const { sortAndFilter } = require("./helpers");
@@ -141,10 +141,36 @@ const addPurchase = (req, res) => {
 
   console.log(purchase);
 
-    res.status(200).send({
-      status: 200,
-      data: purchase,
-    });
+  {
+    purchases.push(req.body);
+    fs.writeFileSync("./data/purchases.json", JSON.stringify(purchases));
+
+    const itemsArray = purchase.newItems;
+    itemsArray.forEach(myFunction);
+
+    function myFunction(item, index, arr) {
+      arr[index] = item.numInStock < item.quantity ? item.name : "";
+    }
+    const value = "";
+    errorArray = itemsArray.filter((item) => item !== value);
+    console.log(itemsArray);
+    console.log(errorArray);
+
+    if (errorArray.length > 0) {
+      res.status(400).json({
+        status: "error",
+        error:
+          "This quantity of stock is not available for the following items - - \r\n" +
+          itemsArray +
+          " \r\n - - Please reduce the quantity and try again.",
+      });
+    } else {
+      res.status(200).send({
+        status: 200,
+        data: purchase,
+      });
+    }
+  }
 
 };
 
