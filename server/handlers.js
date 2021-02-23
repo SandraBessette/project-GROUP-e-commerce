@@ -11,7 +11,7 @@ const getSingleItem = (req, res) => {
   const oneItem = items.find((item) => item._id == id);
 
   if (oneItem) {
-    res.status(200).json({ data: oneItem });
+    res.status(200).json({ status: 200, message: "success", data: oneItem });
   } else {
     res.status(400).json({
       status: 400,
@@ -23,10 +23,16 @@ const getSingleItem = (req, res) => {
 const getCompanyById = (req, res) => {
   const id = req.params.id;
   const oneItem = items.find((item) => item._id == id);
+  if (!oneItem) {
+    return (res.status(400).json({
+            status: 400,
+            message: "That company does not exist in the database",
+          }));
+  }
   const findCompanyId = oneItem.companyId;
   const findCompany = companies.find((company) => company._id == findCompanyId);
   if (findCompany) {
-    res.status(200).json({ data: findCompany });
+    res.status(200).json({ status: 200, message: "success", data: findCompany });
   } else {
     res.status(400).json({
       status: 400,

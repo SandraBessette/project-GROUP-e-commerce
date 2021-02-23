@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { COLORS } from "../../constants";
@@ -13,44 +13,39 @@ const CartItem = ({ setTotalItems, totalItems, setTotalPrice }) => {
   const newItems = useSelector(getStoreItemArray);
 
   useEffect(() => {
-    const calculateTotalItem = (storeState) => {
-      const reducer = (accumulator, storeItem) => {
-        if (storeItem._id) {
-          return Number(accumulator + storeItem.quantity);
+    const calculateTotalItem = (cartItems) => {
+      const reducer = (accumulator, cartItem) => {
+        if (cartItem._id) {
+          return Number(accumulator + cartItem.quantity);
         } else {
           return accumulator;
         }
       };
-      return storeState.reduce(reducer, 0);
+      return cartItems.reduce(reducer, 0);
     };
 
     const total = calculateTotalItem(newItems);
     setTotalItems(total);
-  }, [newItems]);
-  useEffect(() => {
-    const calculateTotal = (storeState) => {
-      const newArray = storeState.map((item) => {
-        const price = item.price;
-        return price.replace("$", "");
-      });
+  }, [newItems, setTotalItems]);
 
-      console.log(newArray);
-
-      const reduceTotal = (accumulator, storeItem) => {
-        if (storeItem._id) {
+  useEffect(() => {  
+    const calculateTotal = (cartItems) =>{
+      const reduceTotal = (accumulator, cartItem) => {
+        if (cartItem._id && cartItem.price) {
+          const price = parseFloat(cartItem.price.replace(/[$,]/g,""))
           return (
-            accumulator + parseFloat(newArray).toFixed(2) * storeItem.quantity
+            accumulator + price.toFixed(2) * cartItem.quantity
           );
         } else {
           return accumulator;
         }
       };
-      return storeState.reduce(reduceTotal, 0);
+      return cartItems.reduce(reduceTotal, 0);       
     };
 
     const total = calculateTotal(newItems).toFixed(2);
     setTotalPrice(total);
-  }, [newItems]);
+  }, [newItems, setTotalPrice]);
 
   return (
     <Wrapper>

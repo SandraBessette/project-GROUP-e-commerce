@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import Spinner from "./Tools/Spinner";
 import ErrorPage from "./ErrorPage";
 import IndividualItem from "./IndividualItem";
@@ -8,47 +7,42 @@ import { useParams } from "react-router-dom";
 import { COLORS } from "../constants";
 import styled from "styled-components";
 
-const Item = () => {
-  const { currentStore } = useSelector((state) => state.store);
+const Item = () => {  
   const [itemData, setItemData] = useState([]);
   const [company, setCompany] = useState([]);
   const [status, setStatus] = useState("idle");
   let { id } = useParams();
-  console.log(currentStore);
-  useEffect(() => {
-    setStatus("loading");
-    if (id) {
-      fetch(`/item/${id}`)
-        .then((response) => response.json())
-        .then((response) => {
-          setItemData(response.data);
-          setStatus("idle");
-        })
-        .catch(() => {
-          setStatus("error");
-        });
-    }
-  }, []);
 
   useEffect(() => {
     setStatus("loading");
     if (id) {
-      fetch(`/company/${id}`)
-        .then((response) => response.json())
-        .then((response) => {
-          setCompany(response.data);
+      Promise.all([
+        fetch(`/item/${id}`).then(response => response.json()),
+        fetch(`/company/${id}`).then(response => response.json())    
+      ]).then(([itemsData, compagnyData]) => { 
+        if (itemsData.status === 200 && compagnyData.status === 200){      
+          setItemData(itemsData.data);
+          setCompany(compagnyData.data);
           setStatus("idle");
-        })
-        .catch(() => {
-          setStatus("error");
-        });
+        }
+        else
+          setStatus("error");         
+      }).catch(() => {
+        setStatus("error");
+      });
     }
-  }, []);
-  console.log(itemData);
-  return (
+  }, [id]);
+  
+  
+  if (status=== "error"){
+    return (
+      <ErrorPage />
+    );
+  };
+
+  return ( 
     <Wrapper>
-      {status === "loading" && <Spinner />}
-      {status === "error" && <ErrorPage />}
+      {status === "loading" && <Spinner />}      
       {status === "idle" && (
         <ItemsWrapper>
           <IndividualItem
@@ -65,7 +59,7 @@ const Item = () => {
           />
         </ItemsWrapper>
       )}
-    </Wrapper>
+    </Wrapper>   
   );
 };
 

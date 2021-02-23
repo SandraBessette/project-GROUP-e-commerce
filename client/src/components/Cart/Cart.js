@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { getStoreItemArray } from "../../reducers/item-reducer";
 import EmptyCart from "./EmptyCart";
-import Checkout from "../Checkout";
-import { COLORS } from "../../constants";
 import styled from "styled-components";
 import CartItem from "./CartItem";
 import { useHistory } from "react-router-dom";

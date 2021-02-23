@@ -33,7 +33,7 @@ export default function itemReducer(state = initialState, action) {
       };
     }
     case "CLEAR_CART": {
-      return state = initialState
+      return state = initialState;
     }
 
     default:
