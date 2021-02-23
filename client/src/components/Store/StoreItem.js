@@ -27,7 +27,7 @@ const StoreItem = ({ item }) => {
     setHidden(true);
   };
 
-  const handleClick = (ev) =>{
+  const handleClick = (ev) => {
     ev.preventDefault();
     dispatch(
       addItem({
@@ -36,10 +36,11 @@ const StoreItem = ({ item }) => {
         price,
         imageSrc,
         companyId,
+        numInStock,
         category,
         body_location,
       })
-    );   
+    );
   };
 
   return (
@@ -91,7 +92,7 @@ const Image = styled.img`
 
   @media (max-width: 940px) {
     width: 150px;
- } 
+  }
 `;
 
 const Wrapper = styled.div`
@@ -105,8 +106,7 @@ const Wrapper = styled.div`
   background-color: ${COLORS.lightGrey};
   @media (max-width: 940px) {
     width: 200px;
- } 
- 
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -144,7 +144,6 @@ const Name = styled.p`
   color: black;
   padding: 0 5px 5px 5px;
   overflow: hidden;
-  
 `;
 
 const Price = styled.p`
@@ -161,7 +160,6 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 5px;
-  
 `;
 
 const SoldOut = styled.div`
