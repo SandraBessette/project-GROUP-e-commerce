@@ -59,7 +59,7 @@ const Checkout = () => {
         .then((response) => {
           const { status, error } = response;
 
-          if (status === 200) {           
+          if (status === 201) {           
             localStorage.setItem("received", JSON.stringify(response.data));
             dispatch(clearCart());
             setSubStatus("confirmed");
