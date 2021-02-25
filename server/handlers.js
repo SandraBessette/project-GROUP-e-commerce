@@ -15,8 +15,8 @@ const getSingleItem = (req, res) => {
   if (oneItem) {
     res.status(200).json({ status: 200, message: "success", data: oneItem });
   } else {
-    res.status(400).json({
-      status: 400,
+    res.status(404).json({
+      status: 404,
       message: "That item does not exist in the database",
     });
   }
@@ -26,8 +26,8 @@ const getCompanyById = (req, res) => {
   const id = req.params.id;
   const oneItem = items.find((item) => item._id == id);
   if (!oneItem) {
-    return (res.status(400).json({
-            status: 400,
+    return (res.status(404).json({
+            status: 404,
             message: "That company does not exist in the database",
           }));
   }
@@ -36,8 +36,8 @@ const getCompanyById = (req, res) => {
   if (findCompany) {
     res.status(200).json({ status: 200, message: "success", data: findCompany });
   } else {
-    res.status(400).json({
-      status: 400,
+    res.status(404).json({
+      status: 404,
       message: "That company does not exist in the database",
     });
   }
@@ -84,7 +84,7 @@ const getItemsCategory = (req, res) => {
     });
 
     if (itemsGroup.length === 0)
-      return res.status(400).json({ status: 400, message: "category not found", data: {category} });
+      return res.status(404).json({ status: 404, message: "category not found", data: {category} });
 
     //determine valid body location for a category
     let bodyLocationObject = {};  
@@ -168,8 +168,8 @@ const addPurchase = (req, res) => {
             }
           })
         });
-        res.status(200).send({
-          status: 200,
+        res.status(201).send({
+          status: 201,
           data: purchase,
         });
     } 
