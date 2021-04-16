@@ -1,18 +1,20 @@
 
-# Wearables E-Commerce Project
+# __Wear-Tek__ 
 
 
 ![Screen Shot 2021-04-16 at 2 32 29 PM](https://user-images.githubusercontent.com/67484805/115068784-b6a35900-9ec0-11eb-8096-b1de5f063e36.png)
-
-
----
-
-**Created by Sandra Bessette, Rebecca Gilhespy,Boris Smaryanakis, and Elodie Lefebvre **
-
----
-
 ## Description
-Wear-Tek is an E-commerce website, selling wearable technology such as watches, smartwear and  and so much more  
+Wear-Tek is a (fictional) E-commerce website selling wearable technology. From smartwear, to watches, to heart monitors, Wear-Tek offers to the user a platform to search any smartwear items, by category or price range. It also allows them to purchase those items and to have them delivered to their home. 
+
+## Features
+* Search bar for specific search
+* Filter items by category, body location (arms, head, waist...), price range, and popularity.
+* Item that are out of stock won't be available to add to cart
+* Updated number of items in cart as they are added 
+* In the cart section, the user can delete or update the quantity of items
+* The session and cart items persist up until the user has checkout
+* Once the user fills out the form with their personal information, they will be able to review it and their purchase on the confirmation page.
+
 ## Technologies
 
 * Javascript
@@ -21,6 +23,7 @@ Wear-Tek is an E-commerce website, selling wearable technology such as watches, 
 * Node.js
 * Express
 * Styled Components
+* Google Maps API
 
 ## Available Scripts
 
@@ -32,3 +35,10 @@ Then in the client folder(`cd client`):
 
 Open http://localhost:3000 to view it in your browser.
 
+
+
+---
+
+**Created by Sandra Bessette, Rebecca Gilhespy,Boris Smaryanakis, and Elodie Lefebvre**
+
+---
