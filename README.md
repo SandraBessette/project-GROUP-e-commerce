@@ -17,7 +17,11 @@ Wear-Tek is a (fictional) E-commerce website selling wearable technology. From s
 * Item that are out of stock won't be available to add to cart
 * Updated number of items in cart as they are added 
 * In the cart section, the user can delete or update the quantity of items
+---
+
 <img width="800" alt="Screen Shot 2021-04-16 at 4 27 26 PM" src="https://user-images.githubusercontent.com/67484805/115080697-32a59d00-9ed1-11eb-91cd-cafc01332c82.png">
+
+---
 * The session and cart items persist up until the user has checkout
 * Once the user fills out the form with their personal information, they will be able to review it and their purchase on the confirmation page.
 
