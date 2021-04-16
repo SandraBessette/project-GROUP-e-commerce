@@ -1,7 +1,7 @@
 
 # __Wear-Tek__ 
 
-<img src="https://user-images.githubusercontent.com/67484805/115068784-b6a35900-9ec0-11eb-8096-b1de5f063e36.png" width="200"/>
+<img src="https://user-images.githubusercontent.com/67484805/115068784-b6a35900-9ec0-11eb-8096-b1de5f063e36.png" width="500"/>
 
 ## Description
 Wear-Tek is a (fictional) E-commerce website selling wearable technology. From smartwear, to watches, to heart monitors, Wear-Tek offers to the user a platform to search any smartwear items, by category or price range. It also allows them to purchase those items and to have them delivered to their home. 
