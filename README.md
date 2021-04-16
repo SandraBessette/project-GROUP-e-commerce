@@ -37,10 +37,10 @@ Wear-Tek is a (fictional) E-commerce website selling wearable technology. From s
 
 ## Available Scripts
 
-Inside of the server folder ( `cd server`), you can run : 
+Inside of the server folder ( `cd server`), run: 
 `yarn start`
 
-Then in the client folder(`cd client`): 
+Then in the client folder(`cd client`), run: 
 `yarn start`
 
 Open http://localhost:3000 to view it in your browser.
@@ -49,6 +49,6 @@ Open http://localhost:3000 to view it in your browser.
 
 ---
 
-**Created by Sandra Bessette, Rebecca Gilhespy,Boris Smaryanakis, and Elodie Lefebvre**
+**Created by Sandra Bessette, Rebecca Gilhespy, Boris Smaryanakis, and Elodie Lefebvre**
 
 ---
