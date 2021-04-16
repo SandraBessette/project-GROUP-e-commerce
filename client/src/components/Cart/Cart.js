@@ -187,13 +187,12 @@ const Button = styled.button`
   width: 150px;
   border-radius: 20px;
   @media (max-width: 768px) and (max-height: 900px) {
-  
     height: 40px;
     font-size: 60%;
-    margin-top:10px;
+    margin-top: 10px;
   }
   @media (max-width: 650px) and (max-height: 850px) {
-    width: 100px;
+    width: 50vw;
     height: 30px;
     font-size: 60%;
   }

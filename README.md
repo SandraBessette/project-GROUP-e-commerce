@@ -7,7 +7,9 @@ Wear-Tek is a (fictional) E-commerce website selling wearable technology. From s
 
 ## Features
 * Search bar for specific search
+
 * Filter items by category, body location (arms, head, waist...), price range, and popularity
+
 ---
 
 <img width="800" alt="Screen Shot 2021-04-16 at 4 26 54 PM" src="https://user-images.githubusercontent.com/67484805/115080686-2cafbc00-9ed1-11eb-83a1-1f024fe4d80b.png">
