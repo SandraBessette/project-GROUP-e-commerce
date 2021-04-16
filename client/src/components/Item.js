@@ -70,12 +70,11 @@ const Wrapper = styled.div`
   color: ${COLORS.primary};
   min-height: 700px;
   background-color: #0d3e5d;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='199' viewBox='0 0 100 199'%3E%3Cg fill='%238cb7d2' fill-opacity='0.4'%3E%3Cpath d='M0 199V0h1v1.99L100 199h-1.12L1 4.22V199H0zM100 2h-.12l-1-2H100v2z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
-  @media (max-width: 768px) and (max-height: 1018px) {
-  min-height:1000px;
-  height:100vh;
-  }
 
+  @media (max-width: 768px) and (max-height: 1018px) {
+    min-height: 1000px;
+    height: 100vh;
+  }
 `;
 const ItemsWrapper = styled.div`
   @media (max-width: 650px) and (max-height: 850px) {

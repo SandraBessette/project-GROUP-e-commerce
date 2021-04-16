@@ -143,9 +143,12 @@ const Items = styled.div`
   min-width: 55vw;
   justify-content: space-around;
   padding: 15px;
+
   border-bottom: lightgray 1px solid;
   @media (max-width: 768px) and (max-height: 900px) {
-    align-items: center;
+
+    min-width: 100vw;
+    width: 100vw;
   }
   @media (max-width: 650px) and (max-height: 850px) {
     display: flex;

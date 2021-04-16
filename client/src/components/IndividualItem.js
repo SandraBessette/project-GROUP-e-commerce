@@ -61,12 +61,12 @@ const IndividualItem = ({
                 {typeof name != "undefined" && name ? name : "Unknown product"}
               </Name>
               <Details>
-                <div>
+                <CompanyDetails>
                   <SoldBy>
                     Sold by <Span>{companyName}</Span>,{" "}
                   </SoldBy>{" "}
                   <ShippedBy>{companyFrom} </ShippedBy>
-                </div>
+                </CompanyDetails>
                 <SubCategory>
                   <Span>Category : </Span>
                   {category}
@@ -212,6 +212,10 @@ const SideBar = styled.div`
     margin-top: 100px;
   }
 `;
+const CompanyDetails = styled.div`
+  color: #d2a70d;
+  border-bottom: 1px solid #d2a70d;
+`;
 const Confirm = styled.div`
   display: flex;
   flex-direction: column;
@@ -235,8 +239,8 @@ const Confirm = styled.div`
     max-width: 80vw;
   }
   @media (max-width: 650px) and (max-height: 850px) {
-    min-height: 35vh;
-    max-height: 50vh;
+    min-height: 50vh;
+    max-height: 60vh;
   }
 `;
 
@@ -257,9 +261,8 @@ const Details = styled.div`
     justify-content: space-around;
   }
   @media (max-width: 768px) and (max-height: 1018px) {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
+    flex-direction: column;
+    align-items: flex-start;
   }
   @media (max-width: 650px) and (max-height: 850px) {
   }
@@ -306,6 +309,9 @@ const SubCategory = styled.div`
   flex-direction: column;
   justify-content: space-between;
   margin-top: 10px;
+  @media (max-width: 768px) {
+    height: 15vh;
+  }
 `;
 
 const ButtonWrap = styled.div`
