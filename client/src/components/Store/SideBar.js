@@ -164,7 +164,7 @@ const Divider = styled.div`
 `;
 
 const SectionWrapper = styled.div`  
-    max-height: 400px;
+    max-height: 700px;
     overflow: hidden;   
     transition: max-height 0.45s ease-in-out;
 

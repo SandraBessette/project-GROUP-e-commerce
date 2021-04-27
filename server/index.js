@@ -25,9 +25,7 @@ express()
   .use(express.urlencoded({ extended: false }))
   .use("/", express.static(__dirname + "/"))
 
-  .get("/bacon", (req, res) => res.status(200).json("🥓"))
-
-
+ 
   .get("/items", handlers.getItems)
 
   .get("/items/categories/:category", handlers.getItemsCategory)
@@ -36,10 +34,7 @@ express()
 
   .get("/item/:id", handlers.getSingleItem)
 
-  .get("/company/:id/", handlers.getCompanyById)
-
-  //unused endpoint for searching
-  // .get("/search/:searchstring", handlers.getItemBySearch)
+  .get("/company/:id/", handlers.getCompanyById) 
 
   .post("/purchase", handlers.addPurchase)
   
